@@ -35,6 +35,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check environment
+        run: |
+          if [ -z "$MONGODB_URI" ]; then
+            echo "❌ MONGODB_URI is missing"
+            exit 1
+          fi
+
+          if [ -z "$MONGODB_TEST_URI" ]; then
+            echo "❌ MONGODB_TEST_URI is missing"
+            exit 1
+          fi
+
+          echo "✅ MongoDB environment variables are available"
+
       - name: Build
         run: npm run build
 
